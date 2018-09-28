@@ -38,7 +38,7 @@
 	canvas.addEventListener( "mouseup", function()
 	{
 		canvas.removeEventListener( "mousemove", onPaint, false );
-		canvas.addEventListener( "mouseup", mouseup_f, false );
+		/* canvas.addEventListener( "mouseup", mouseup_f, false ); */
 
 	}, false );
 
@@ -67,7 +67,7 @@
 		var data = lastMouse.x + lastMouse.y;
 		recordings.push(lastMouse.x);
 		recordings.push(lastMouse.y);
-		$('#result').text(' stroke '+ recordings);
+		/* $('#result').text(' stroke '+ recordings); */
 
 
 		let soMany = 10;
@@ -88,6 +88,9 @@
 */
 	};
 
+
+
+
 	function debug()
 	{
 		/* CLEAR BUTTON */
@@ -95,7 +98,26 @@
 		
 		clearButton.on( "click", function()
 		{
-			
+				   		callme();
+
+			   			console.log(recordings);
+			   			console.log(recordings.length);
+
+	   			var myJSON = JSON.stringify( recordings); 
+	   			$.ajax({
+	   				type: "POST",
+	   				//url: $SCRIPT_ROOT + "/predict2/",
+	   				url: "/predict2/",
+	   				data: myJSON,
+	   				success: function(data){
+	   					$('#result').text(' Predicted Output: '+data);
+	   				}
+	   			});
+
+
+			   			recordings = new Array();
+
+
 				context.clearRect( 0, 0, 280, 280 );
 				context.fillStyle="white";
 				context.fillRect(0,0,canvas.width,canvas.height);
@@ -116,5 +138,34 @@
 		{
 			context.lineWidth = $( this ).val();
 		});
+
+
+
+		$(".myButton2").click(function(){
+	   			//var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	   			//var canvasObj = document.getElementById("canvas");
+	   			//var img = '3'; 
+	   			//var buffer = new Array();
+	   			//buffer.push('4')
+	   			//buffer.push('5')
+	   			var myJSON = JSON.stringify( recordings); 
+	   			
+	   			$.ajax({
+	   				type: "POST",
+	   				//url: $SCRIPT_ROOT + "/predict2/",
+	   				url: "/predict2/",
+	   				data: myJSON,
+	   				success: function(data){
+	   					$('#result').text(' Predicted Output: '+data);
+	   				}
+	   			});
+	   		});
+
+
 	}
 }());
+
+
+function callme() {
+	console.log(`callme was called`);
+}

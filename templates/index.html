@@ -43,13 +43,18 @@
   		<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 	    <script src="{{ url_for('static',filename='index.js') }}"></script>
+
+
 	    <script type="text/javascript">
 	   
+	   		callme();
+
+
 	   		$(".myButton").click(function(){
 	   			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 	   			var canvasObj = document.getElementById("canvas");
 	   			var img = canvasObj.toDataURL(); 
-	   			<!--  #UTF-16 -->
+	   			
 	   			$.ajax({
 	   				type: "POST",
 	   				url: $SCRIPT_ROOT + "/predict/",
@@ -68,8 +73,8 @@
 	   			var buffer = new Array();
 	   			buffer.push('4')
 	   			buffer.push('5')
-	   			var myJSON = JSON.stringify(buffer); 
-	   			<!--  #UTF-16 -->
+	   			var myJSON = JSON.stringify( recordings); 
+	   			
 	   			$.ajax({
 	   				type: "POST",
 	   				url: $SCRIPT_ROOT + "/predict2/",
