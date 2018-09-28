@@ -23,7 +23,8 @@ def init():
 #	#print('accuracy:', accuracy)
 #
 
-	loaded_model = load_model('./model_sym61_batch500_epoch1000_1st64_2nd32.h5')
+	#loaded_model = load_model('./model_sym61_batch500_epoch1000_1st64_2nd32.h5')
+	loaded_model = load_model('./model_sym61_batch500_epoch1500_1st64_2nd32.h5')
 	graph = tf.get_default_graph()
 
 	return loaded_model,graph
