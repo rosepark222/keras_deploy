@@ -93,10 +93,23 @@
 
 	function debug()
 	{
-		/* CLEAR BUTTON */
-		var clearButton = $( "#clearButton" );
-		
-		clearButton.on( "click", function()
+		/* Remove BUTTON */
+		var RemoveButton = $( "#RemoveButton" );
+		RemoveButton.on( "click", function()
+		{
+				   		//callme();
+
+			   			//console.log(recordings);
+			   			//console.log(recordings.length);
+			   			recordings = new Array();
+				context.clearRect( 0, 0, 280, 280 );
+				context.fillStyle="white";
+				context.fillRect(0,0,canvas.width,canvas.height);
+			    $('#result').text('');
+		});
+		/*   BUTTON */
+		var PredictButton = $( "#PredictButton" );
+		PredictButton.on( "click", function()
 		{
 				   		callme();
 
@@ -110,20 +123,11 @@
 	   				url: "/predict2/",
 	   				data: myJSON,
 	   				success: function(data){
-	   					$('#result').text(' Predicted Output: '+data);
+	   					$('#result').text(data);
 	   				}
 	   			});
-
-
-			   			recordings = new Array();
-
-
-				context.clearRect( 0, 0, 280, 280 );
-				context.fillStyle="white";
-				context.fillRect(0,0,canvas.width,canvas.height);
 			
 		});
-
 		/* COLOR SELECTOR */
 
 		$( "#colors" ).change(function()
