@@ -21,3 +21,6 @@ That's it! It's serving a saved Keras model to you via Flask.
 
 The credits for this code go to [moinudeen](https://github.com/moinudeen). I've merely created a wrapper to get people started.
 
+
+gcloud app deploy  main.yaml 
+

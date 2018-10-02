@@ -57,15 +57,30 @@ symbol_list= [ "\\sigma_1_1", "(_1_1",       "\\sum_1_1",   "1_1_1",       "n_1_
  "5_2_hook",    "6_1_1",       "v_1_1",       "5_1_1",       "w_1_1",       "\\gt_1_1",    "\\alpha_1_1",
  "\\beta_1_1",  "\\gamma_1_1", "m_1_1",       "l_1_1",       "[_1_1",       "\\infty_1_1", "/_1_1"]
 
-symbol_list= [  "\\sum_1_1",   "n_1_1",       "2_1_1",      
-  "b_1_1",       "c_1_1",           "3_1_1",     
- "a_1_1",       "8_1_1",             "y_1_1",       "0_1_1",      
-       "\\sqrt_1_1",       "k_1_1",      
-     "j_2_1",      
- "9_1_1",         "\\int_1_1",  
-   "6_1_1",        "5_1_1"    
- ]
 
+
+symbol_list= [
+"0_1_1",
+"1_1_1",
+"2_1_1",
+"3_1_1",
+"4_1_1",
+"5_1_1",
+"6_1_1",
+"7_1_1",
+"8_1_1",
+"9_1_1",
+"\\sum_1_1",
+"\\sqrt_1_1",
+"\\int_1_1",
+"a_1_1",
+"b_1_1",
+"c_1_1",
+"j_2_1",
+"k_1_1",
+"n_1_1",
+"y_1_1"
+ ]
 
 # m_1_1
 # gamma_1_1
@@ -277,11 +292,12 @@ symbol_list= [  "\\sum_1_1",   "n_1_1",       "2_1_1",
 
 
 def convertImage(imgData1):
+	a = 1
 	#imgstr = re.search(r'base64,(.*)',imgData1).group(1)
 	#print(imgstr)
-	with open('output.png','wb') as output:
+	#with open('output.png','wb') as output:
 		#output.write(imgstr.decode('base64'))
-		output.write(imgData1)
+	#	output.write(imgData1)
 	
 
 @app.route('/')
