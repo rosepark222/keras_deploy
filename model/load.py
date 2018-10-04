@@ -8,12 +8,12 @@ from tensorflow.python.keras.models import load_model
 
 
 def init(): 
-	json_file = open('model.json','r')
+	json_file = open('deploy_model_epoch599.json','r')
 	loaded_model_json = json_file.read()
 	json_file.close()
 	loaded_model = model_from_json(loaded_model_json)
 	#load woeights into new model
-	loaded_model.load_weights("model.h5")
+	loaded_model.load_weights("deploy_model_epoch599.h5")
 	print("Loaded Model from disk")
 
 	#compile and evaluate loaded model

@@ -360,13 +360,16 @@ def predict2():
 	strokes[:,1] =  strokes[:,1] - strokes[ mmm[1] ][1]  	
 
 	max_idx = np.argmax(strokes, axis = 0)
+
+	scale = max(strokes[ max_idx[0] ][0], strokes[ max_idx[1] ][1])
 	#print ("max_idx")
 	#print( max_idx)
-	strokes[:,0] =  strokes[:,0]/strokes[ max_idx[0] ][0] * 100
-	strokes[:,1] =  strokes[:,1]/strokes[ max_idx[1] ][1] * 100
-	#print("strokes")
-	#print(strokes)
+	strokes[:,0] =  strokes[:,0]/scale * 100
+	strokes[:,1] =  strokes[:,1]/scale * 100
+	print("strokes")
+	
 	x = strokes.reshape(1, len(strokes), 2)
+	print(x)
 	with graph.as_default():
 		#perform the prediction
 		out = model.predict(x)
