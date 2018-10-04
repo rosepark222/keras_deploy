@@ -59,7 +59,7 @@ symbol_list= [ "\\sigma_1_1", "(_1_1",       "\\sum_1_1",   "1_1_1",       "n_1_
 
 
 
-symbol_list= [
+xsymbol_list= [
 "0_1_1",
 "1_1_1",
 "2_1_1",
