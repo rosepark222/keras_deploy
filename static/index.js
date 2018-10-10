@@ -2,7 +2,7 @@
 {
 	var canvas = document.querySelector( "#canvas" );
 	var context = canvas.getContext( "2d" );
-	canvas.width = 280;
+	canvas.width = 840;
 	canvas.height = 280;
 
 	console.log(`We are under ${this} context`);
@@ -32,12 +32,13 @@
 	canvas.addEventListener( "mousedown", function( e )
 	{
 		canvas.addEventListener( "mousemove", onPaint, false );
-
+ 		recordings.push(-999);
 	}, false );
 
 	canvas.addEventListener( "mouseup", function()
 	{
 		canvas.removeEventListener( "mousemove", onPaint, false );
+
 		/* canvas.addEventListener( "mouseup", mouseup_f, false ); */
 
 	}, false );

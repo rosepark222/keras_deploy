@@ -13,17 +13,23 @@
 
 <body>
  
-		<h1>Handwritten Digit Recognition using <span>(Bidirectional) Recurrent Neural Networks</span> <br> Allowed symbols: 0-9,Sigma,sqrt,integral,a,b,c,j,k,n,y</h1>
+		<h1>Handwritten Math Equation Recognition using <span>(Bidirectional) Recurrent Neural Networks</span> <br>  </h1>
 
-		<canvas id="canvas" width="280" height="280" style="border:8px solid; float: left; margin: 70px; margin-top:160px;  border-radius: 5px; cursor: crosshair;"></canvas>
+		<canvas id="canvas" width="280" height="280" style="border:3px solid; float: left; margin: 70px; margin-top:160px;  border-radius: 5px; cursor: crosshair;"></canvas>
+
+
+
+
 		<div id="debug" style="margin:65px; margin-top:100px;">
 
 			
 			<!-- <input type="color" id="colors">
 			 <input type="number" id="lineWidth" style="width:60px" value="0.2" step="0.1" min="0.1"> -->
 			<input type="button" id="PredictButton" value="Predict" style="">
-			<input type="button" id="RemoveButton" value="Remove" style="">
-			
+			<input type="button" id="RemoveButton" value="Clear" style="">
+		</div>	
+
+		<div id="debug" style="margin:65px; margin-top:500px;">
 
 			<br/>
 			<span id="result" style="color: #4DAF7C; font-weight: 400; font-family: 'Open Sans', Helvetica;	">Draw the Digit inside this Box!</span>

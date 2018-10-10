@@ -8,8 +8,10 @@ from tensorflow.python.keras.models import load_model
 
 
 def init(): 
-	j_file = 'deploy_model_sym61_epoch1199.json' # deploy_model_epoch599.json'
-	w_file = 'deploy_model_sym61_epoch1199.h5' # deploy_model_epoch599.h5"
+#	j_file = 'deploy_model_sym53_batch500_epoch1299_1st64_2nd32.json' # deploy_model_epoch599.json'
+#	w_file = 'deploy_model_sym53_batch500_epoch1299_1st64_2nd32_weight.h5' # deploy_model_epoch599.h5"
+	j_file = 'deploy_model_sym53_batch500_epoch1299_balanced.json' # deploy_model_epoch599.json'
+	w_file = 'deploy_model_sym53_batch500_epoch1299_balanced_weight.h5' # deploy_model_epoch599.h5"
 
 	json_file = open( j_file,'r')
 	loaded_model_json = json_file.read()
