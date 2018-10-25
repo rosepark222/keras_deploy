@@ -129,6 +129,49 @@
 	   			});
 			
 		});
+
+		/*   BUTTON */
+		var PredictButton15 = $( "#PredictButton15" );
+		PredictButton15.on( "click", function()
+		{
+				   		callme();
+
+			   			console.log(recordings);
+			   			console.log(recordings.length);
+
+	   			var myJSON = JSON.stringify( recordings); 
+	   			$.ajax({
+	   				type: "POST",
+	   				//url: $SCRIPT_ROOT + "/predict2/",
+	   				url: "/predict15/",
+	   				data: myJSON,
+	   				success: function(data){
+	   					$('#result').text(data);
+	   				}
+	   			});
+			
+		});	
+
+		/*   BUTTON */
+		var PredictButton53 = $( "#PredictButton53" );
+		PredictButton53.on( "click", function()
+		{
+				   		callme();
+
+			   			console.log(recordings);
+			   			console.log(recordings.length);
+
+	   			var myJSON = JSON.stringify( recordings); 
+	   			$.ajax({
+	   				type: "POST",
+	   				url: "/predict53/",
+	   				data: myJSON,
+	   				success: function(data){
+	   					$('#result').text(data);
+	   				}
+	   			});
+			
+		});					
 		/* COLOR SELECTOR */
 
 		$( "#colors" ).change(function()

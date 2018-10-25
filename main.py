@@ -41,10 +41,11 @@ from load import *
 #initalize our flask app
 app = Flask(__name__)
 #global vars for easy reusability
-global model, graph
-#initialize these variables
-model, graph = init()
 
+#global model, graph, model_feature15, graph_feature15
+global model, graph, model_feature15, graph_feature15
+
+import helper as helper
 #decoding an image from base64 into raw representation
 
 #TypeError: cannot use a string pattern on a bytes-like object
@@ -80,14 +81,23 @@ xsymbol_list= [
 "y_1_1"
  ]
 
-symbol_list= [ "\\sigma_1_1", "(_1_1",       "\\sum_1_1",   "1_1_1",       "n_1_1",       "2_1_1",       ")_1_1",       "r_1_1",
+xsymbol_list_53= [ "\\sigma_1_1", "(_1_1",       "\\sum_1_1",   "1_1_1",       "n_1_1",       "2_1_1",       ")_1_1",       "r_1_1",
  "i_2_1",       "\\theta_1_1", "\\sum_2_bot", "b_1_1",       "c_1_1",       "4_1_1",       "3_1_1",       "d_1_1",
- "a_1_1",       "8_1_1",       "7_1_1",       "4_2_nose",    "y_1_1",       "0_1_1",       "x_2_left",
+ "a_1_1",     "8_1_1",       "7_1_1",       "4_2_nose",    "y_1_1",       "0_1_1",       "x_2_left",
  "x_1_1",       "\\sqrt_1_1",  "o_1_1",       "u_1_1",       "\\mu_1_1",    "k_1_1",      "\\lt_1_1",
   "q_1_1",        "\\{_1_1",     "\\}_1_1",
  "9_1_1",        "\\int_1_1",   "t_2_tail",    "e_1_1",       "x_2_right",       "g_1_1",       "s_1_1",
  "5_2_hook",    "6_1_1",       "v_1_1",       "5_1_1",       "w_1_1",       "\\gt_1_1",    "\\alpha_1_1",
  "\\beta_1_1",  "\\gamma_1_1", "m_1_1",       "l_1_1",        "\\infty_1_1", "/_1_1"]
+
+symbol_list= [ "2_1_1", "3_1_1", "x_2_left", ")_1_1"] 
+#symbol_list= [ "x_2_left", "x_2_right", "c_1_1",  ")_1_1", "(_1_1"] 
+
+print(len(xsymbol_list))
+
+
+#initialize these variables
+model, graph, model_feature15, graph_feature15, model_feature53, graph_feature53 = init()
 
 
 
@@ -98,7 +108,7 @@ def convertImage(imgData1):
 	#with open('output.png','wb') as output:
 		#output.write(imgstr.decode('base64'))
 	#	output.write(imgData1)
-def predict_strokes(decoded):	
+def predict_strokes(model, decoded, symbol_list):	
 	#refindout = re.findall(r"[-+]?[0-9]*\.?[0-9]+", decoded)
 	#map_float = np.array( list( map(float, refindout)))
 	#strokes = np.reshape( map_float , (-1, 2))
@@ -154,7 +164,7 @@ def predict_strokes(decoded):
 		return predicted #response	
 
 
-def decode_strokes(decoded):
+def decode_strokes(model, decoded, symbol_list):
 	a = 1
 	#print("request.get_data()")
 	print(decoded)
@@ -178,8 +188,9 @@ def decode_strokes(decoded):
 	strokes = [x[1:] for x in strks] #remove -999 from strokes
 	out_string = ''
 	for s in strokes:
-		out_string = out_string + predict_strokes(s) + "===="
-
+		out_string = out_string + predict_strokes(model, s, symbol_list) + "================>"
+#================>
+#++++++++++++++++> 
 	return (out_string)
 
 @app.route('/')
@@ -187,6 +198,45 @@ def index():
 	#initModel()
 	#render out pre-built HTML file right on the index page
 	return render_template("index.html")
+
+	
+@app.route('/predict2/',methods=['GET','POST'])
+def predict2():
+	imgData2 = request.get_data() 
+	#decoded = imgData2.decode("UTF-8")
+	with graph.as_default():
+		out_str = helper.deploy_predict_online_stroke_data (imgData2, model, xsymbol_list_53)
+	return (out_str) 
+
+	#print( "%d was sent to python"% (len(decoded)))
+
+	#return (decoded + "1001")
+@app.route('/predict15/',methods=['GET','POST'])
+def predict15():
+	print("predict15")
+	imgData2 = request.get_data() 
+	#decoded = imgData2.decode("UTF-8")
+	with graph_feature15.as_default():
+		out_str = helper.deploy_predict_online_stroke_data (imgData2, model_feature15, symbol_list)
+	return (out_str) 
+
+@app.route('/predict53/',methods=['GET','POST'])
+def predict53():
+	print("predict53")
+	imgData2 = request.get_data() 
+	#decoded = imgData2.decode("UTF-8")
+	with graph_feature53.as_default():
+		out_str = helper.deploy_predict_online_stroke_data (imgData2, model_feature53, xsymbol_list_53)
+	return (out_str) 
+
+
+if __name__ == "__main__":
+	#decide what port to run the app in
+	port = int(os.environ.get('PORT', 5000))
+	#run the app locally on the givn port
+	app.run(host='0.0.0.0', port=port)
+	#optional if we want to run in debugging mode
+	#app.run(debug=True)
 
 # @app.route('/predict/',methods=['GET','POST'])
 # def predict():
@@ -221,27 +271,6 @@ def index():
 # 		#convert the response to a string
 # 		response = np.array_str(np.argmax(out,axis=1))
 # 		return response	
-	
-@app.route('/predict2/',methods=['GET','POST'])
-def predict2():
-	imgData2 = request.get_data() 
-	decoded = imgData2.decode("UTF-8")
-	out_str = decode_strokes (decoded)
-	return (out_str) 
-
-	#print( "%d was sent to python"% (len(decoded)))
-
-	#return (decoded + "1001")
-
-if __name__ == "__main__":
-	#decide what port to run the app in
-	port = int(os.environ.get('PORT', 5000))
-	#run the app locally on the givn port
-	app.run(host='0.0.0.0', port=port)
-	#optional if we want to run in debugging mode
-	#app.run(debug=True)
-
-
 
 # m_1_1
 # gamma_1_1
