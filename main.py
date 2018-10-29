@@ -42,8 +42,8 @@ from load import *
 app = Flask(__name__)
 #global vars for easy reusability
 
-#global model, graph, model_feature15, graph_feature15
-global model, graph, model_feature15, graph_feature15
+#global model, graph, model2, graph2
+global model1, graph1, model2, graph2, model3, graph3
 
 import helper as helper
 #decoding an image from base64 into raw representation
@@ -97,7 +97,7 @@ print(len(xsymbol_list))
 
 
 #initialize these variables
-model, graph, model_feature15, graph_feature15, model_feature53, graph_feature53 = init()
+model1, graph1, model2, graph2, model3, graph3 = init()
 
 
 
@@ -108,90 +108,90 @@ def convertImage(imgData1):
 	#with open('output.png','wb') as output:
 		#output.write(imgstr.decode('base64'))
 	#	output.write(imgData1)
-def predict_strokes(model, decoded, symbol_list):	
-	#refindout = re.findall(r"[-+]?[0-9]*\.?[0-9]+", decoded)
-	#map_float = np.array( list( map(float, refindout)))
-	#strokes = np.reshape( map_float , (-1, 2))
+# def predict_strokes(model, decoded, symbol_list):	
+# 	#refindout = re.findall(r"[-+]?[0-9]*\.?[0-9]+", decoded)
+# 	#map_float = np.array( list( map(float, refindout)))
+# 	#strokes = np.reshape( map_float , (-1, 2))
 
-	strokes = np.reshape( decoded , (-1, 2))
+# 	strokes = np.reshape( decoded , (-1, 2))
 
-	mmm = np.argmin(strokes, axis = 0)
-	strokes[:,0] =  strokes[:,0] - strokes[ mmm[0] ][0]  
-	strokes[:,1] =  strokes[:,1] - strokes[ mmm[1] ][1]  	
+# 	mmm = np.argmin(strokes, axis = 0)
+# 	strokes[:,0] =  strokes[:,0] - strokes[ mmm[0] ][0]  
+# 	strokes[:,1] =  strokes[:,1] - strokes[ mmm[1] ][1]  	
 
-	max_idx = np.argmax(strokes, axis = 0)
+# 	max_idx = np.argmax(strokes, axis = 0)
 
-	scale = max(strokes[ max_idx[0] ][0], strokes[ max_idx[1] ][1])
-	#print ("max_idx")
-	#print( max_idx)
-	strokes[:,0] =  strokes[:,0]/scale * 100
-	strokes[:,1] =  strokes[:,1]/scale * 100
-	#print("strokes")
+# 	scale = max(strokes[ max_idx[0] ][0], strokes[ max_idx[1] ][1])
+# 	#print ("max_idx")
+# 	#print( max_idx)
+# 	strokes[:,0] =  strokes[:,0]/scale * 100
+# 	strokes[:,1] =  strokes[:,1]/scale * 100
+# 	#print("strokes")
 	
-	x = strokes.reshape(1, len(strokes), 2)
-	#print(x)
-	with graph.as_default():
-		#perform the prediction
-		out = model.predict(x)
-		out = out.flatten().tolist()
-		#print(out)
+# 	x = strokes.reshape(1, len(strokes), 2)
+# 	#print(x)
+# 	with graph.as_default():
+# 		#perform the prediction
+# 		out = model.predict(x)
+# 		out = out.flatten().tolist()
+# 		#print(out)
 
-		largest_three_symidx = [out.index(x) for x in sorted(out, reverse=True)[:3]]
-		print(largest_three_symidx)
+# 		largest_three_symidx = [out.index(x) for x in sorted(out, reverse=True)[:3]]
+# 		print(largest_three_symidx)
 
-		largest_three_out = [x for x in sorted(out, reverse=True)[:3]]
-		print(largest_three_out)
+# 		largest_three_out = [x for x in sorted(out, reverse=True)[:3]]
+# 		print(largest_three_out)
 
-		num_1_sym  = symbol_list[ largest_three_symidx[0] ]
-		num_2_sym  = symbol_list[ largest_three_symidx[1] ]
-		num_3_sym  = symbol_list[ largest_three_symidx[2] ]
-		num_1_prob  =  largest_three_out[0]
-		num_2_prob  =  largest_three_out[1]
-		num_3_prob  =  largest_three_out[2]
+# 		num_1_sym  = symbol_list[ largest_three_symidx[0] ]
+# 		num_2_sym  = symbol_list[ largest_three_symidx[1] ]
+# 		num_3_sym  = symbol_list[ largest_three_symidx[2] ]
+# 		num_1_prob  =  largest_three_out[0]
+# 		num_2_prob  =  largest_three_out[1]
+# 		num_3_prob  =  largest_three_out[2]
 
-		#print(largest_three)
-		arg_max = np.argmax(out)
-		#print( arg_max )
-		predicted = symbol_list[ arg_max ]
+# 		#print(largest_three)
+# 		arg_max = np.argmax(out)
+# 		#print( arg_max )
+# 		predicted = symbol_list[ arg_max ]
 
-		#print ("pred: symbol[%d]=         %s  ; len = %d" %(arg_max, predicted, len(strokes)))
-		predicted = " [%s, %s, %s]= [%3.2f,%3.2f,%3.2f] = %d" %(num_1_sym, num_2_sym, num_3_sym,
-			num_1_prob, num_2_prob, num_3_prob , len(strokes))
-		print (predicted)
-		#symbol_list[]
-		#convert the response to a string
-		#response = np.array_str(np.argmax(out,axis=1))
-		return predicted #response	
+# 		#print ("pred: symbol[%d]=         %s  ; len = %d" %(arg_max, predicted, len(strokes)))
+# 		predicted = " [%s, %s, %s]= [%3.2f,%3.2f,%3.2f] = %d" %(num_1_sym, num_2_sym, num_3_sym,
+# 			num_1_prob, num_2_prob, num_3_prob , len(strokes))
+# 		print (predicted)
+# 		#symbol_list[]
+# 		#convert the response to a string
+# 		#response = np.array_str(np.argmax(out,axis=1))
+# 		return predicted #response	
 
 
-def decode_strokes(model, decoded, symbol_list):
-	a = 1
-	#print("request.get_data()")
-	print(decoded)
-	print(type(decoded))	#print("100")
-	refindout = re.findall(r"[-+]?[0-9]*\.?[0-9]+", decoded)
-	decoded = np.array( list( map(float, refindout)))
-	print(decoded)
-	print(type(decoded))	#print("100")
-	#print(type("100"))
-	#print(imgData2.decode("UTF-8"))
-	print("-------------------")
-	print(decoded)
-	npa = np.array(decoded)
-	print("-------------------")
-	print(npa)
-	print(type(npa))
-	spl = np.flatnonzero( npa == -999)
-	print(spl)
-	strks = np.split(npa, spl)[1:] #split and throw away the empty first
-	print(strks)
-	strokes = [x[1:] for x in strks] #remove -999 from strokes
-	out_string = ''
-	for s in strokes:
-		out_string = out_string + predict_strokes(model, s, symbol_list) + "================>"
-#================>
-#++++++++++++++++> 
-	return (out_string)
+# def decode_strokes(model, decoded, symbol_list):
+# 	a = 1
+# 	#print("request.get_data()")
+# 	print(decoded)
+# 	print(type(decoded))	#print("100")
+# 	refindout = re.findall(r"[-+]?[0-9]*\.?[0-9]+", decoded)
+# 	decoded = np.array( list( map(float, refindout)))
+# 	print(decoded)
+# 	print(type(decoded))	#print("100")
+# 	#print(type("100"))
+# 	#print(imgData2.decode("UTF-8"))
+# 	print("-------------------")
+# 	print(decoded)
+# 	npa = np.array(decoded)
+# 	print("-------------------")
+# 	print(npa)
+# 	print(type(npa))
+# 	spl = np.flatnonzero( npa == -999)
+# 	print(spl)
+# 	strks = np.split(npa, spl)[1:] #split and throw away the empty first
+# 	print(strks)
+# 	strokes = [x[1:] for x in strks] #remove -999 from strokes
+# 	out_string = ''
+# 	for s in strokes:
+# 		out_string = out_string + predict_strokes(model, s, symbol_list) + "================>"
+# #================>
+# #++++++++++++++++> 
+# 	return (out_string)
 
 @app.route('/')
 def index():
@@ -200,33 +200,34 @@ def index():
 	return render_template("index.html")
 
 	
-@app.route('/predict2/',methods=['GET','POST'])
+@app.route('/predict1/',methods=['GET','POST'])
 def predict2():
 	imgData2 = request.get_data() 
 	#decoded = imgData2.decode("UTF-8")
-	with graph.as_default():
-		out_str = helper.deploy_predict_online_stroke_data (imgData2, model, xsymbol_list_53)
+	with graph1.as_default():
+		out_str = helper.deploy_predict_online_stroke_data (imgData2, model1, xsymbol_list_53)
 	return (out_str) 
 
 	#print( "%d was sent to python"% (len(decoded)))
 
 	#return (decoded + "1001")
-@app.route('/predict15/',methods=['GET','POST'])
+@app.route('/predict2/',methods=['GET','POST'])
 def predict15():
-	print("predict15")
+	print("predict2")
 	imgData2 = request.get_data() 
 	#decoded = imgData2.decode("UTF-8")
-	with graph_feature15.as_default():
-		out_str = helper.deploy_predict_online_stroke_data (imgData2, model_feature15, symbol_list)
+	with graph2.as_default():
+		out_str = helper.deploy_predict_online_stroke_data (imgData2, model2, xsymbol_list_53)
 	return (out_str) 
 
-@app.route('/predict53/',methods=['GET','POST'])
+@app.route('/predict3/',methods=['GET','POST'])
 def predict53():
-	print("predict53")
+	print("predict3")
 	imgData2 = request.get_data() 
 	#decoded = imgData2.decode("UTF-8")
-	with graph_feature53.as_default():
-		out_str = helper.deploy_predict_online_stroke_data (imgData2, model_feature53, xsymbol_list_53)
+	#with graph3.as_default():
+	#	out_str = helper.deploy_predict_online_stroke_data (imgData2, model3, xsymbol_list_53)
+	out_str = " $$x = { -b + \\sqrt{b^2-4ac} \\over 2a}.$$ "
 	return (out_str) 
 
 

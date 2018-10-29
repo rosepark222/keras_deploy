@@ -109,8 +109,30 @@
 			    $('#result').text('');
 		});
 		/*   BUTTON */
-		var PredictButton = $( "#PredictButton" );
+		var PredictButton = $( "#PredictButton1" );
 		PredictButton.on( "click", function()
+		{
+				   		callme();
+
+			   			console.log(recordings);
+			   			console.log(recordings.length);
+
+	   			var myJSON = JSON.stringify( recordings); 
+	   			$.ajax({
+	   				type: "POST",
+	   				//url: $SCRIPT_ROOT + "/predict2/",
+	   				url: "/predict1/",
+	   				data: myJSON,
+	   				success: function(data){
+	   					$('#result_debug').text(data);
+	   				}
+	   			});
+			
+		});
+
+		/*   BUTTON */
+		var PredictButton15 = $( "#PredictButton2" );
+		PredictButton15.on( "click", function()
 		{
 				   		callme();
 
@@ -124,36 +146,14 @@
 	   				url: "/predict2/",
 	   				data: myJSON,
 	   				success: function(data){
-	   					$('#result').text(data);
-	   				}
-	   			});
-			
-		});
-
-		/*   BUTTON */
-		var PredictButton15 = $( "#PredictButton15" );
-		PredictButton15.on( "click", function()
-		{
-				   		callme();
-
-			   			console.log(recordings);
-			   			console.log(recordings.length);
-
-	   			var myJSON = JSON.stringify( recordings); 
-	   			$.ajax({
-	   				type: "POST",
-	   				//url: $SCRIPT_ROOT + "/predict2/",
-	   				url: "/predict15/",
-	   				data: myJSON,
-	   				success: function(data){
-	   					$('#result').text(data);
+	   					$('#result_debug').text("data");
 	   				}
 	   			});
 			
 		});	
 
 		/*   BUTTON */
-		var PredictButton53 = $( "#PredictButton53" );
+		var PredictButton53 = $( "#PredictButton3" );
 		PredictButton53.on( "click", function()
 		{
 				   		callme();
@@ -164,10 +164,15 @@
 	   			var myJSON = JSON.stringify( recordings); 
 	   			$.ajax({
 	   				type: "POST",
-	   				url: "/predict53/",
+	   				url: "/predict3/",
 	   				data: myJSON,
 	   				success: function(data){
-	   					$('#result').text(data);
+	   					// $('#result_math').text(" $$x = { -b + \\sqrt{b^2-4ac} \\over 2a}.$$ ");
+	   					$('#result_math').text(data);
+	   					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"result_math"]);
+	   					/* https://stackoverflow.com/questions/8151318/mathjax-not-working-in-ajax-based-web-page
+	   					http://docs.mathjax.org/en/latest/advanced/typeset.html
+	   					*/
 	   				}
 	   			});
 			
