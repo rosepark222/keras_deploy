@@ -666,7 +666,7 @@ def deploy_predict_online_stroke_data(canvassData, model, symbol_list):
     decoded_string = canvassData.decode("UTF-8")
     refindout = re.findall(r"[-+]?[0-9]*\.?[0-9]+", decoded_string)
     number_array = np.array( list( map(float, refindout)))
-    print(decoded_string)
+    #print(decoded_string)
 #    print(type(decoded))    #print("100")
     #print(type("100"))
     #print(imgData2.decode("UTF-8"))
@@ -682,25 +682,26 @@ def deploy_predict_online_stroke_data(canvassData, model, symbol_list):
 #    print(strks)
     np_strokes = [x[1:] for x in strks] #remove -999 from strokes
     send_to_http = ""
+    first_choice = ""
     for n in np_strokes:
         #out_string = out_string + predict_strokes(n) + "===="
         np_shaped_xy = np.reshape( n , (-1, 2))
         str_features, binary_img_display = extract_features(np_shaped_xy, verbose = False)
-        print(str_features)
+        #print(str_features)
         np_features = str_to_np_array(str_features,15)
         tensor_x = np_features.reshape(1, len(np_features), 15) #why do I this again? Keras is expecting 3D tensor
-        print_array(tensor_x)
-        print(tensor_x.shape)
+        #print_array(tensor_x)
+        #print(tensor_x.shape)
 #with graph.as_default():
 #perform the prediction
         predict_out = model.predict(tensor_x)
         out = predict_out.flatten().tolist()
 #
         largest_three_symidx = [out.index(x) for x in sorted(out, reverse=True)[:3]]
-        print(largest_three_symidx)
+        #print(largest_three_symidx)
 #
         largest_three_out = [x for x in sorted(out, reverse=True)[:3]]
-        print(largest_three_out)
+        #print(largest_three_out)
 #
         num_1_sym  = symbol_list[ largest_three_symidx[0] ]
         num_2_sym  = symbol_list[ largest_three_symidx[1] ]
@@ -710,9 +711,11 @@ def deploy_predict_online_stroke_data(canvassData, model, symbol_list):
         num_3_prob  =  largest_three_out[2]
         predicted = " [%s, %s, %s]= [%3.2f,%3.2f,%3.2f] = %d" %(num_1_sym, num_2_sym, num_3_sym,
         num_1_prob, num_2_prob, num_3_prob , len(np_shaped_xy))
-        print (predicted)
+        #print (predicted)
         send_to_http = send_to_http +  predicted + "++++++++++++++++>"
-    return(send_to_http)
+        best = re.split("_", num_1_sym )[0]
+        first_choice = first_choice + best + ", "
+    return(send_to_http, first_choice)
 
 def stroke_to_features( s_string , verbose = False):
     np_array =  str_to_np_array(s_string, 2, verbose=False) #stroke string to col=2 np_array

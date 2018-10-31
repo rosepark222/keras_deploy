@@ -205,7 +205,7 @@ def predict2():
 	imgData2 = request.get_data() 
 	#decoded = imgData2.decode("UTF-8")
 	with graph1.as_default():
-		out_str = helper.deploy_predict_online_stroke_data (imgData2, model1, xsymbol_list_53)
+		out_str, best_choice = helper.deploy_predict_online_stroke_data (imgData2, model1, xsymbol_list_53)
 	return (out_str) 
 
 	#print( "%d was sent to python"% (len(decoded)))
@@ -217,8 +217,8 @@ def predict15():
 	imgData2 = request.get_data() 
 	#decoded = imgData2.decode("UTF-8")
 	with graph2.as_default():
-		out_str = helper.deploy_predict_online_stroke_data (imgData2, model2, xsymbol_list_53)
-	return (out_str) 
+		out_str, best_choice = helper.deploy_predict_online_stroke_data (imgData2, model2, xsymbol_list_53)
+	return ( "$$ " + best_choice + "$$") 
 
 @app.route('/predict3/',methods=['GET','POST'])
 def predict53():

@@ -146,7 +146,9 @@
 	   				url: "/predict2/",
 	   				data: myJSON,
 	   				success: function(data){
-	   					$('#result_debug').text("data");
+	   					$('#result_debug').text(data);
+	   					MathJax.Hub.Queue(["Typeset",MathJax.Hub,"result_debug"]);
+	   					
 	   				}
 	   			});
 			
