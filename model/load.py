@@ -21,8 +21,8 @@ def init():
 #	w_file = 'deploy_model_sym53_batch500_epoch1299_1st64_2nd32_weight.h5' # deploy_model_epoch599.h5"
 #	j_file = 'deploy_balanced.json' #deploy_model_sym52_batch500_epoch999_balanced.json' # deploy_model_epoch599.json'
 #	w_file = 'deploy_balanced.h5' #deploy_model_sym52_batch500_epoch999_balanced_weight.h5' # deploy_model_epoch599.h5"
-	j_file = 'deploy_balanced_hand_clean.json' #deploy_model_sym52_batch500_epoch999_balanced.json' # deploy_model_epoch599.json'
-	w_file = 'deploy_balanced_hand_clean.h5' #deploy_model_sym52_batch500_epoch999_balanced_weight.h5' # deploy_model_epoch599.h5"
+	j_file = 'deploy_model_sym53_batch500_epoch855_1st64_2nd32.json' #deploy_model_sym52_batch500_epoch999_balanced.json' # deploy_model_epoch599.json'
+	w_file = 'deploy_model_sym53_batch500_epoch855_1st64_2nd32_weight.h5' #deploy_model_sym52_batch500_epoch999_balanced_weight.h5' # deploy_model_epoch599.h5"
 	model1, graph1 = compile_model(j_file, w_file)
 
 
@@ -38,8 +38,10 @@ def init():
 	# graph1 = tf.get_default_graph()
 #	j_file20 = 'deploy_x_left_right_c_open_closeB.json' #deploy_model_sym52_batch500_epoch999_balanced.json' # deploy_model_epoch599.json'
 #	w_file20 = 'deploy_x_left_right_c_open_closeB.h5' #deploy_model_sym52_batch500_epoch999_balanced_weight.h5' # deploy_model_epoch599.h5"
-	j_file = 'deploy_model_sym53_batch500_epoch855_1st64_2nd32.json' #deploy_model_sym52_batch500_epoch999_balanced.json' # deploy_model_epoch599.json'
-	w_file = 'deploy_model_sym53_batch500_epoch855_1st64_2nd32_weight.h5' #deploy_model_sym52_batch500_epoch999_balanced_weight.h5' # deploy_model_epoch599.h5"
+	j_file = 'deploy_model_weights.checkpoint.best.json' #deploy_model_sym52_batch500_epoch999_balanced.json' # deploy_model_epoch599.json'
+	w_file = 'deploy_model_weights.checkpoint.best.h5' #deploy_model_sym52_batch500_epoch999_balanced_weight.h5' # deploy_model_epoch599.h5"
+#	j_file = 'deploy_model_sym53_batch500_epoch855_1st64_2nd32.json' #deploy_model_sym52_batch500_epoch999_balanced.json' # deploy_model_epoch599.json'
+#	w_file = 'deploy_model_sym53_batch500_epoch855_1st64_2nd32_weight.h5' #deploy_model_sym52_batch500_epoch999_balanced_weight.h5' # deploy_model_epoch599.h5"
 
 	model2, graph2 = compile_model(j_file, w_file)
 
@@ -54,8 +56,8 @@ def init():
 	#j_file = 'deploy_15_features_53_sym_hijk.json' #deploy_model_sym52_batch500_epoch999_balanced.json' # deploy_model_epoch599.json'
 	#w_file = 'deploy_15_features_53_sym_hijk.h5' #deploy_model_sym52_batch500_epoch999_balanced_weight.h5' # deploy_model_epoch599.h5"
 
-	j_file = 'deploy_balanced_hand_clean_2_batch200.json' #deploy_model_sym52_batch500_epoch999_balanced.json' # deploy_model_epoch599.json'
-	w_file = 'deploy_balanced_hand_clean_2_batch200.h5' #deploy_model_sym52_batch500_epoch999_balanced_weight.h5' # deploy_model_epoch599.h5"
+	j_file = 'deploy_model_sym53_batch500_epoch855_1st64_2nd32.json' #deploy_model_sym52_batch500_epoch999_balanced.json' # deploy_model_epoch599.json'
+	w_file = 'deploy_model_sym53_batch500_epoch855_1st64_2nd32_weight.h5' #deploy_model_sym52_batch500_epoch999_balanced_weight.h5' # deploy_model_epoch599.h5"
 
 	model3, graph3 = compile_model(j_file, w_file)
 	# json_file53 = open( j_file53,'r')
