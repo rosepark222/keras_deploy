@@ -21,8 +21,8 @@ That's it! It's serving a saved Keras model to you via Flask.
 
 The credits for this code go to [moinudeen](https://github.com/moinudeen). I've merely created a wrapper to get people started.
 
-[![x_2_left](https://github.com/rosepark222/keras_deploy/x_2_left.png)](https://github.com/rosepark222/keras_deploy/x_2_left.png)
-[![mutt dark](https://github.com/altercation/solarized/raw/master/img/screen-mutt-dark-th.png)](https://github.com/altercation/solarized/raw/master/img/screen-mutt-dark.png)
 
+ 
 gcloud app deploy  main.yaml 
 
+![screenshot from 2018-11-01 08-46-12](https://user-images.githubusercontent.com/38844805/47862556-a495d480-ddb2-11e8-98f0-0a55746f2dbc.png)
