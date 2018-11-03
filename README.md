@@ -1,29 +1,37 @@
 # Deployment of a Tensorflow Model to the Google cloud
 
-Summary: Imagine a kid works on math problems using math equations in her iPad software and she (or he) writes down her answer using Apple Pencil. When iPad software recognizes her answer is wrong, it will provide relevant mini problems to help her to learn necessary concepts to solve the original math problem. Meanwhile, her misconceptions are analyzed from her math equation answer and appropriate feedback will be generated for her teachers or parents. This project is a baby step for this lofty goal. An essential technique of this learning platform is called Handwritten Recognition System for Math Equations. As of today, a bidirectional RNN has been trained to recognize 53 math strokes (not symbols -- details come below). Additional processing is planned to bring this recognition to symbol and equation level for complete math equation recognition.
+Overview of the project: Imagine a learner works on math problems in her iPad software and she writes down her answer in a math equation form using Apple Pencil. When education software recognizes an incorrect ansewr, it will provide relevant feedback to her so that she can learn necessary concepts to solve the original problem. Meanwhile, her misconceptions are analyzed from her answer and appropriate insights will be generated for relevant stake holders - her teachers or parents. This project is an initial step for this goal using the latest machine learning technique. An essential technique for this learning ecosystem is Handwritten Recognition System for Math Equations. In this project, a bidirectional RNN has been trained to recognize 53 math strokes (not symbols -- details comes below). Future developments are planned for complete math equation recognition.
 
-I think the best way to have the feel for this project is to dabble with the deployment in Google cloud:http://pradoxum001.appspot.com/
+The best way to have the feel for this project is to dabble with the deployment in the Google cloud: http://pradoxum001.appspot.com/
 
-This screenshot shows the recognition of digits. Note that 4 and 5 indicate that they are the first part of strokes of 4 and 5.
+---
+
+
+A simple (may be too simple) front end design (predict and clear buttons and a Canvas) was developed using Javascript and HTML, while Python and Flask were used for the back-end framework. The following screenshot shows the recognition of digits. Note that only first stroke of '4' and '5' were recognized.
 
 <img width="412" alt="screen shot 2018-11-02 at 4 04 47 am" src="https://user-images.githubusercontent.com/38844805/47862556-a495d480-ddb2-11e8-98f0-0a55746f2dbc.png">
 
-A simple (may be too simple) front end design (predict and clear buttons and a Canvas) was developed using Javascript and HTML, while Python and Flask were used for the back-end framework. The deployment platform for this project is Google cloud and App engine was very easy to set up. In the front-end, math typesetting is performed any time a recognition is performed and outputs are displayed. The outcome symbols can be either recognized as symbols or other symbols a stroke belongs to. For example, C can be recognized as the symbol C or right side of two-stroked x. Thus, the recognition output for purportedly C can be either C or X, depending on the features of the stroke (see below).
+Google cloud was chosen as the deployment platform. In the front-end, math typesetting was performed any time a recognition is performed by clicking 'predict' button. The displayed results are either recognized symbols or symbols the stroke may belong to. For example, C can be recognized as the symbol C or x_2_2 of two-stroked x. Thus, a recognition result for a seemingly C stroke can be either C or X.
 
 <img width="312" height="260" alt="screen shot 2018-11-02 at 4 04 47 am" src="https://user-images.githubusercontent.com/38844805/47912120-bfb92080-de54-11e8-8e7c-ff626ac8abd6.png">
 
-Certain level of misclassification in Machine Learning is inevitable and further processings are required. Math equations are often referred as 2D language and spatial relationships among strokes should be considered for the symbol level or equation level recognition. Further, the context of an equation in the application (e.g., problem-answer application in a tablet) should provide important information to improve the chance of the correct recognition. 
+Further processings are required for recognizing math equations, which are often considered as 2D language. Thus, spatial (locational) relationships among strokes need to be modelded for the equation level analysis. 
 
-Exciting future plans for the project are:
- 1.	Addition of line detection prior to the training --- I believe the line detection is essential because a large set of symbols are composed up of lines. Interesting observation is that symbols that are composed up with lines (e.g., + or - or division line) are often separating an entire equation into smaller units.
+Future plans for the project are:
+ 1.	Addition of line detection as a preprocess --- I believe the line detection is essential because a large set of symbols are composed up of line(s). Interesting observation is that many symbols that are comprised with lines (e.g., + or - or division line) often divide the entire equation into smaller units, which can be analyzied individually.
  2.	Develop insights for the spatial relationship among strokes --- math equations are 2D language. Distances and angles matter when we group strokes to form symbols.
- 3.	Develop probabilistic model for relating symbols and strokes --- theories are not always correct but many times useful, thus study techniques discovering the sequence of latent categorical variables (e.g., Hidden Markov Model, Viterbi algorithm)
- 4.	Improve stroke recognition --- I need more data for this. Currently, information for each stroke are heavily unbalanced. I can modify this front-end design and  store strokes data from users.
+ 3.	Develop probabilistic model for relating symbols and strokes [Muñoz, 2015]--- theories are useful for discovering the sequence of latent categorical variables (e.g., Hidden Markov Model, Viterbi algorithm)
+ 4.	Improve stroke recognition --- Need for more data. Currently, sample sizes for stroke are heavily unbalanced.
 
 
 ## Credit
 
 I have modified a code from [this](https://youtu.be/f6Bf3gl4hWY) Youtube clip made by Siraj Raval, which was developed to recognize handwritten digit images (MNIST) using [TensorFlow](https://www.tensorflow.org/) and the [Keras](http://keras.io/) Library, wrapped into a Webapp using [Flask](http://flask.pocoo.org/) Micro Framework.
+
+## Reference
+
+Muñoz, F. Á. (2015). Mathematical Expression Recognition based on Probabilistic Grammars (Doctoral dissertation).
+
 
 #### Note
 There are all three github repositories realted to this project--  
